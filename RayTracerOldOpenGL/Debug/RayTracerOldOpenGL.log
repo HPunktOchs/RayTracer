@@ -1,13 +1,16 @@
-﻿  teil_1.cpp
-c:\users\henrik\source\repos\raytraceroldopengl\raytraceroldopengl\sphere.cpp(25): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
-c:\users\henrik\source\repos\raytraceroldopengl\raytraceroldopengl\sphere.cpp(28): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
-c:\users\henrik\source\repos\raytraceroldopengl\raytraceroldopengl\sphere.cpp(32): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
-c:\users\henrik\source\repos\raytraceroldopengl\raytraceroldopengl\teil_1.cpp(47): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+﻿  Triangle.cpp
+  teil_1.cpp
+c:\users\henrik\source\repos\raytracer\raytraceroldopengl\sphere.cpp(25): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
+c:\users\henrik\source\repos\raytracer\raytraceroldopengl\sphere.cpp(28): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
+c:\users\henrik\source\repos\raytracer\raytraceroldopengl\sphere.cpp(32): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
+c:\users\henrik\source\repos\raytracer\raytraceroldopengl\teil_1.cpp(47): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+  Sphere.cpp
+c:\users\henrik\source\repos\raytracer\raytraceroldopengl\sphere.cpp(25): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
+c:\users\henrik\source\repos\raytracer\raytraceroldopengl\sphere.cpp(28): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
+c:\users\henrik\source\repos\raytracer\raytraceroldopengl\sphere.cpp(32): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
   Ray.cpp
-  Code wird generiert...
-  Überspringen... (keine relevanten Änderungen gefunden)
-  Triangle.cpp
   Object.cpp
   Intersection.cpp
-  RayTracerOldOpenGL.vcxproj -> C:\Users\Henrik\source\repos\RayTracerOldOpenGL\Debug\RayTracerOldOpenGL.exe
-  RayTracerOldOpenGL.vcxproj -> C:\Users\Henrik\source\repos\RayTracerOldOpenGL\Debug\RayTracerOldOpenGL.pdb (Partial PDB)
+  Code wird generiert...
+  RayTracerOldOpenGL.vcxproj -> C:\Users\Henrik\source\repos\RayTracer\Debug\RayTracerOldOpenGL.exe
+  RayTracerOldOpenGL.vcxproj -> C:\Users\Henrik\source\repos\RayTracer\Debug\RayTracerOldOpenGL.pdb (Partial PDB)

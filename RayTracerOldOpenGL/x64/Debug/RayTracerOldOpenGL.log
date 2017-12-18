@@ -1,0 +1,13 @@
+﻿  Triangle.cpp
+c:\users\henrik\source\repos\raytracer\raytraceroldopengl\ray.cpp(1): fatal error C1083: Datei (Include) kann nicht geöffnet werden: "Eigen/Geometry": No such file or directory
+  teil_1.cpp
+c:\users\henrik\source\repos\raytracer\raytraceroldopengl\ray.cpp(1): fatal error C1083: Datei (Include) kann nicht geöffnet werden: "Eigen/Geometry": No such file or directory
+  Sphere.cpp
+c:\users\henrik\source\repos\raytracer\raytraceroldopengl\ray.cpp(1): fatal error C1083: Datei (Include) kann nicht geöffnet werden: "Eigen/Geometry": No such file or directory
+  Ray.cpp
+c:\users\henrik\source\repos\raytracer\raytraceroldopengl\ray.cpp(1): fatal error C1083: Datei (Include) kann nicht geöffnet werden: "Eigen/Geometry": No such file or directory
+  Object.cpp
+c:\users\henrik\source\repos\raytracer\raytraceroldopengl\ray.cpp(1): fatal error C1083: Datei (Include) kann nicht geöffnet werden: "Eigen/Geometry": No such file or directory
+  Intersection.cpp
+c:\users\henrik\source\repos\raytracer\raytraceroldopengl\intersection.cpp(1): fatal error C1083: Datei (Include) kann nicht geöffnet werden: "Eigen/Geometry": No such file or directory
+  Code wird generiert...
