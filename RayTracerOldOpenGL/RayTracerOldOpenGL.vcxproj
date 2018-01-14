@@ -19,12 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Intersection.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="Ray.cpp" />
-    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="teil_1.cpp" />
-    <ClCompile Include="Triangle.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Intersection.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="Ray.h" />
+    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="Triangle.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -78,7 +80,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Henrik\source\repos\RayTracerOldOpenGL\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
