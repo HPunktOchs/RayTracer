@@ -1,0 +1,8 @@
+﻿  teil_1.cpp
+teil_1.cpp(43): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+  Code wird generiert.
+  520 of 928 functions (56.0%) were compiled, the rest were copied from previous compilation.
+    4 functions were new in current compilation
+    55 functions had inline decision re-evaluated but remain unchanged
+  Codegenerierung ist abgeschlossen.
+  RayTracerOldOpenGL.vcxproj -> C:\Users\Henrik\source\repos\RayTracer\Release\RayTracerOldOpenGL.exe

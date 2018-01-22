@@ -7,11 +7,13 @@
 
 class Object {
 public:
-	Object(Vector3d* color, int glanzFaktor = 1, double kSpec = 0.1, double kDiff = 1.) {
+	Object(Vector3d* color, int glanzFaktor, double kSpec, double kDiff, double pTransp, double pRefl) {
 		this->color = color;
 		this->glanzFaktor = glanzFaktor;
 		this->kSpec = kSpec;
 		this->kDiff = kDiff;
+		this->pTransp = pTransp;
+		this->pRefl = pRefl;
 	}
 	virtual ~Object() {}
 	virtual bool intersect(Ray ray, Intersection& inter) = 0;
@@ -33,9 +35,19 @@ public:
 		return this->kDiff;
 	}
 
+	double getPTransp() {
+		return this->pTransp;
+	}
+
+	double getPRefl() {
+		return this->pRefl;
+	}
+
 private:
 	Vector3d* color;
 	int glanzFaktor;
 	double kSpec;
 	double kDiff;
+	double pTransp;
+	double pRefl;
 };

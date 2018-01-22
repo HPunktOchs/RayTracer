@@ -10,7 +10,7 @@ private:
 	vector<Vector3d*> edges;
 
 public:
-	Triangle(vector<Vector3d*> edges, Vector3d* col, int glanzFaktor = 1, double kSpec = 0.1, double kDiff = 1.) : Object(col, glanzFaktor, kSpec, kDiff) {
+	Triangle(vector<Vector3d*> edges, Vector3d* col, int glanzFaktor = 1, double kSpec = 0.1, double kDiff = 1., double pTransp = 0., double pRefl = 0.) : Object(col, glanzFaktor, kSpec, kDiff, pTransp, pRefl) {
 		this->edges = edges;
 	}
 

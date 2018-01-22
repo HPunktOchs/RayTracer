@@ -1,7 +1,4 @@
 ﻿  teil_1.cpp
-c:\users\henrik\source\repos\raytraceroldopengl\raytraceroldopengl\sphere.h(23): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
-c:\users\henrik\source\repos\raytraceroldopengl\raytraceroldopengl\sphere.h(26): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
-c:\users\henrik\source\repos\raytraceroldopengl\raytraceroldopengl\sphere.h(30): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
-c:\users\henrik\source\repos\raytraceroldopengl\raytraceroldopengl\teil_1.cpp(48): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
-  RayTracerOldOpenGL.vcxproj -> C:\Users\Henrik\source\repos\RayTracerOldOpenGL\Debug\RayTracerOldOpenGL.exe
-  RayTracerOldOpenGL.vcxproj -> C:\Users\Henrik\source\repos\RayTracerOldOpenGL\Debug\RayTracerOldOpenGL.pdb (Partial PDB)
+c:\users\henrik\source\repos\raytracer\raytraceroldopengl\teil_1.cpp(46): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+  RayTracerOldOpenGL.vcxproj -> C:\Users\Henrik\source\repos\RayTracer\Debug\RayTracerOldOpenGL.exe
+  RayTracerOldOpenGL.vcxproj -> C:\Users\Henrik\source\repos\RayTracer\Debug\RayTracerOldOpenGL.pdb (Partial PDB)
