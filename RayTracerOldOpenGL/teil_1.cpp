@@ -1,18 +1,24 @@
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
+
 #include "Sphere.h"
 #include "Triangle.h"
 #include "Image.h"
+#include "Camera.h"
 
 using namespace std;
 
 
-const int xWidth = 500;
+const int xWidth = 1000;
 const int yWidth = 500;
 const int reflectiveMaxDepth = 5;
-Image img(xWidth, yWidth);
-
-Sphere light(new Vector3d(xWidth *0.5, yWidth*0.4, 200.), 1, new Vector3d(255., 255., 255.));
+const int superSamples = 2;
+Camera cam(Vector3d(0.5*xWidth,0.5*yWidth,10000), Vector3d(0, 1, 0), Vector3d(0.5*xWidth, 0.5*yWidth, 0),0);
+Image img(yWidth, xWidth);
+Sphere light(new Vector3d(xWidth *0.5, yWidth*0.5, 100.), 1, new Vector3d(255., 255., 255.));
 vector<Object*> objects;
 
+Vector3d prepSuperSampling(int y, int x);
 Vector3d spekularLight(const Intersection &intersec, const Vector3d &lightDirVec, const Ray& ray, Object* obj);
 Vector3d doLighting(Object* obj, const Intersection& intersec, Ray ray, const int& depth);
 Vector3d calcAmbient(Object* obj);
@@ -21,33 +27,62 @@ Vector3d traceRay(const Ray& ray, const int& depth);
 Vector3d reflectiveRefractive(Object* obj, const Intersection& intersec, Ray ray, const int& depth);
 Vector3d reflVector(const Vector3d& vec, const Vector3d& normal);
 
+double getRandDouble() {
+	return ((double)rand() / (RAND_MAX)) + 1;
+}
+
 void clamp255(Vector3d& col) {
 	col[0] = (col[0] > 255) ? 255 : (col[0] < 0) ? 0 : col[0];
 	col[1] = (col[1] > 255) ? 255 : (col[1] < 0) ? 0 : col[1];
 	col[2] = (col[2] > 255) ? 255 : (col[2] < 0) ? 0 : col[2];
 }
 
-void rayCasting() {				
-		for (int y = 0; y < yWidth; y++) {		
-			for (int x = 0; x < xWidth; x++) {
-				Ray ray(new Vector3d(x, y, 0), new Vector3d(0, 0, 1));
-				Vector3d pix_color(traceRay(ray, 0));
-				img.putColor(x, y, pix_color);
-			}
-		}	
-		img.writeImage();
+void rayCasting() {
+	for (int y = 0; y < yWidth; y++) {
+		for (int x = 0; x < xWidth; x++) {		
+			//cout << ray.getOrg()->matrix() << endl;
+			//cout << ray.getDir()->matrix() << endl;
+			Vector3d pix_color(prepSuperSampling(y,x));
+			img.putColor(y, x, pix_color);
+		}
+	}
+	img.writeImage();
 }
 
+Vector3d prepSuperSampling(int y, int x) {
+	double rayX = (x - xWidth / 2) / 2.0;
+	double rayY = (y - yWidth / 2) / 2.0;
+	double pixelWidth = rayX - (x + 1 - xWidth / 2) /2.0;
+	double sampleWidth = pixelWidth / (double)superSamples;
+	double sampleStartX = rayX - pixelWidth / 2.0;
+	double sampleStartY = rayY - pixelWidth / 2.0;
+	double sampleWeight = 1.0 / (superSamples * superSamples);
+	Vector3d color(0.,0.,0.);
+	for (int y = 0; y < superSamples; y++) {
+		for (int x = 0; x < superSamples; x++) {	
+			Vector3d imagePlanePoint = cam.lookAt -
+				(cam.u * (sampleStartX + (x * sampleWidth))) +
+				(cam.v * (sampleStartY + (y * sampleWidth)));
+			Ray lanaDelRay(new Vector3d(cam.position), new Vector3d (imagePlanePoint - cam.position));
+			color = color + traceRay(lanaDelRay, 0) *sampleWeight;
+		}
+	}
+	return color;
+}
+
+
 Vector3d traceRay(const Ray& ray, const int& depth) {
+	//cout << "Ray: " << endl;
+	//cout << ray.getOrg()->matrix() << "Dir:" << endl << ray.getDir()->matrix() << endl;
 	Vector3d pix_color(0.,0.,0.);
 	for (int o = 0; o < objects.size(); o++) {
 		Object* obj = objects[o];
 		Intersection intersec;
+		//if (dynamic_cast<Triangle*>(obj)) {
+		//	int i = 0;
+		//}
 		bool check = obj->intersect(ray, intersec);
-		if (check) {
-			if (dynamic_cast<Sphere*>(obj)) {
-				int i = 0;
-			}
+		if (check) {			
 			pix_color = doLighting(obj, intersec, ray, depth);
 		}
 	}
@@ -216,20 +251,26 @@ Vector3d reflectiveRefractive(Object* obj, const Intersection& intersec, Ray ray
 void buildScene() {
 	// Glanzfaktor seems to have a problem sometimes. sometimes the spec. light is just black, nothing else. 
 	//(center, r, color, glanzFaktor, kSpec, kDiff, pTransp, pRefl)
-	Sphere* sphere = new Sphere(new Vector3d(xWidth *0.3, yWidth*0.5, -10), 80, new Vector3d(255., 255., 255.), 30, 0.5, 0.5);	//red
-	Sphere* sphere2 = new Sphere(new Vector3d(xWidth *0.7, yWidth*0.5, -10), 80, new Vector3d(0, 0., 255.), 30, 0.5, 0.5);
+	Sphere* sphere = new Sphere(new Vector3d(xWidth *0.5, yWidth*0.5, -50), 10, new Vector3d(255.,0., 0.), 10, 0.5, 0.5);	//red
+	Sphere* sphere2 = new Sphere(new Vector3d(xWidth *0.3, yWidth*0.5, -50), 20, new Vector3d(0, 255., 0.), 15, 0.5, 0.5);
+	Sphere* sphere3 = new Sphere(new Vector3d(xWidth *0.4, yWidth*0.3, -50), 30, new Vector3d(0, 0., 255.), 20, 0.5, 0.5);
+	Sphere* jenny = new Sphere(new Vector3d(xWidth *0.6, yWidth*0.6, -50), 50, new Vector3d(151., 255., 255.), 50, 0.5, 0.5);
 	// its important to go from left to the right with the edges. otherwise the normal will be facing the other-way around and will not be lighted correctly!
-	vector<Vector3d*> edges;
-	edges.push_back(new Vector3d(250., 0., 0.));
-	edges.push_back(new Vector3d(300., 100., 0.));
-	edges.push_back(new Vector3d(200., 100., 0.));
-	Triangle* tri = new Triangle(edges, new Vector3d(0, 139, 139), 50, 0.5, 0.5);
+	vector<Vector3d*> edges;	
+	edges.push_back(new Vector3d(500., 200., -10.));
+	edges.push_back(new Vector3d(550., 150., -10.));
+	edges.push_back(new Vector3d(600., 200., -10.));
+	Triangle* tri = new Triangle(edges, new Vector3d(0, 139, 139), 10, 0.5, 0.5);
 	objects.push_back(tri);
 	objects.push_back(sphere);
 	objects.push_back(sphere2);
+	objects.push_back(sphere3);
+	objects.push_back(jenny);
+
 }
 
 int main(int argc, char **argv) {
+   srand(time(NULL));
    buildScene();
    rayCasting();
    return 0;

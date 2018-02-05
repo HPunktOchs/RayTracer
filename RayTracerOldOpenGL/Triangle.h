@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "Object.h"
 #include <vector>
@@ -17,6 +17,42 @@ public:
 	~Triangle() {}
 
 	bool intersect(Ray ray, Intersection& inter) {
+		double u, v, t;
+		Vector3d orig = *ray.getOrg();
+		Vector3d dir = *ray.getDir();
+		Vector3d v0 = *this->edges[0];
+		Vector3d v1 = *this->edges[1];
+		Vector3d v2 = *this->edges[2];
+		Vector3d v0v1 = v1 - v0;
+		Vector3d v0v2 = v2 - v0;
+		Vector3d pvec = dir.cross(v0v2);
+		double det = v0v1.dot(pvec);
+
+		// if the determinant is negative the triangle is backfacing
+		// if the determinant is close to 0, the ray misses the triangle
+		//if (det < 1e-10) return false;
+		if (fabs(det) < 1e-10) return false;
+
+		double invDet = 1 / det;
+
+		Vector3d tvec = orig - v0;
+		u = tvec.dot(pvec) * invDet;
+		if (u < 0 || u > 1) return false;
+
+		Vector3d qvec = tvec.cross(v0v1);
+		v = dir.dot(qvec) * invDet;
+		if (v < 0 || u + v > 1) return false;
+
+		t = v0v2.dot(qvec) * invDet;
+		Vector3d p = v0 + u*v0v1 + v*v0v2; // A + u(B−A) + v(C−A)
+		inter.normal = new Vector3d(v0v1.cross(v0v2));
+		inter.hit = true;
+		inter.intersection = new Vector3d(p);
+		return true;
+	}
+
+
+	bool oldintersect(Ray ray, Intersection& inter) {
 		Vector3d orig = *ray.getOrg();
 		Vector3d dir = *ray.getDir();
 		Vector3d v0 = *this->edges[0];
