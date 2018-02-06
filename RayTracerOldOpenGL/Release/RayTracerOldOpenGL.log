@@ -1,9 +1,9 @@
 ﻿  teil_1.cpp
-teil_1.cpp(78): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+teil_1.cpp(79): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
 teil_1.cpp(273): warning C4244: "Argument": Konvertierung von "time_t" in "unsigned int", möglicher Datenverlust
   Code wird generiert.
-  1 of 1082 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  2 of 1174 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    28 functions had inline decision re-evaluated but remain unchanged
   Codegenerierung ist abgeschlossen.
   RayTracerOldOpenGL.vcxproj -> C:\Users\Henrik\source\repos\RayTracer\Release\RayTracerOldOpenGL.exe

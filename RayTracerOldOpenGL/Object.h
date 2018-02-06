@@ -16,7 +16,7 @@ public:
 		this->pRefl = pRefl;
 	}
 	virtual ~Object() {}
-	virtual bool intersect(Ray ray, Intersection& inter) = 0;
+	virtual bool intersect(const Ray& ray, Intersection& inter) = 0;
 	// virtual Vector3d* getNormal(Vector3d* pi) = 0;
 
 	Vector3d* getColor() {

@@ -12,5 +12,8 @@ public:
 	bool hit;
 
 	Intersection() {}
-	~Intersection() {}
+	~Intersection() {
+		delete this->normal;
+		delete this->intersection;
+	}
 };

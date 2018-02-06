@@ -16,7 +16,7 @@ public:
 
 	~Triangle() {}
 
-	bool intersect(Ray ray, Intersection& inter) {
+	bool intersect(const Ray& ray, Intersection& inter) {
 		double u, v, t;
 		Vector3d orig = *ray.getOrg();
 		Vector3d dir = *ray.getDir();

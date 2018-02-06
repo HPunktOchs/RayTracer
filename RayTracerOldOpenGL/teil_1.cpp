@@ -11,20 +11,20 @@ using namespace std;
 
 const int xWidth = 1000;
 const int yWidth = 500;
-const int reflectiveMaxDepth = 5;
-const int superSamples = 2;
+const int reflectiveMaxDepth = 6;
+const int superSamples = 5;
 Camera cam(Vector3d(0.5*xWidth,0.5*yWidth,10000), Vector3d(0, 1, 0), Vector3d(0.5*xWidth, 0.5*yWidth, 0),0);
 Image img(yWidth, xWidth);
-Sphere light(new Vector3d(xWidth *0.5, yWidth*0.5, 100.), 1, new Vector3d(255., 255., 255.));
+Sphere light(new Vector3d(xWidth *0.5, yWidth*0.5, 100.), 0.1, new Vector3d(255., 255., 255.));
 vector<Object*> objects;
 
 Vector3d prepSuperSampling(int y, int x);
 Vector3d spekularLight(const Intersection &intersec, const Vector3d &lightDirVec, const Ray& ray, Object* obj);
-Vector3d doLighting(Object* obj, const Intersection& intersec, Ray ray, const int& depth);
+Vector3d doLighting(Object* obj, const Intersection& intersec,const Ray& ray, const int& depth);
 Vector3d calcAmbient(Object* obj);
 Vector3d calcDiffuseAndSpec(Object* obj, const Intersection& intersec, const Ray& ray);
 Vector3d traceRay(const Ray& ray, const int& depth);
-Vector3d reflectiveRefractive(Object* obj, const Intersection& intersec, Ray ray, const int& depth);
+Vector3d reflectiveRefractive(Object* obj, const Intersection& intersec,const Ray& ray, const int& depth);
 Vector3d reflVector(const Vector3d& vec, const Vector3d& normal);
 
 double getRandDouble() {
@@ -38,6 +38,7 @@ void clamp255(Vector3d& col) {
 }
 
 void rayCasting() {
+#pragma omp parallel for
 	for (int y = 0; y < yWidth; y++) {
 		for (int x = 0; x < xWidth; x++) {		
 			//cout << ray.getOrg()->matrix() << endl;
@@ -89,12 +90,12 @@ Vector3d traceRay(const Ray& ray, const int& depth) {
 	return pix_color;
 }
 
-Vector3d doLighting(Object* obj, const Intersection& intersec, Ray ray, const int& depth) {
+Vector3d doLighting(Object* obj, const Intersection& intersec, const Ray& ray, const int& depth) {
 	Vector3d color(0., 0., 0.);
 	Vector3d DiffAndSpec(calcDiffuseAndSpec(obj,intersec,ray));
 	Vector3d ambient(calcAmbient(obj));
-	//Vector3d reflectiveAndRefractive(reflectiveRefractive(obj, intersec, ray, depth));
-	color = ambient + DiffAndSpec;// +reflectiveAndRefractive;
+	Vector3d reflectiveAndRefractive(reflectiveRefractive(obj, intersec, ray, depth));
+	color = ambient + DiffAndSpec +reflectiveAndRefractive;
 	clamp255(color);
 	return color;
 }
@@ -219,7 +220,7 @@ double getReflectance(const Vector3d& normal, const Vector3d& incident,	double n
 	return (r0rth * r0rth + rPar * rPar) / 2.0;
 }
 
-Vector3d reflectiveRefractive(Object* obj, const Intersection& intersec, Ray ray, const int& depth) {
+Vector3d reflectiveRefractive(Object* obj, const Intersection& intersec,const Ray& ray, const int& depth) {
 	if (obj->getPRefl() < 1e-4 && obj->getPTransp() < 1e-4 || depth == reflectiveMaxDepth) {
 		return Vector3d(0., 0., 0.);
 	}
@@ -253,8 +254,8 @@ void buildScene() {
 	//(center, r, color, glanzFaktor, kSpec, kDiff, pTransp, pRefl)
 	Sphere* sphere = new Sphere(new Vector3d(xWidth *0.5, yWidth*0.5, -50), 10, new Vector3d(255.,0., 0.), 10, 0.5, 0.5);	//red
 	Sphere* sphere2 = new Sphere(new Vector3d(xWidth *0.3, yWidth*0.5, -50), 20, new Vector3d(0, 255., 0.), 15, 0.5, 0.5);
-	Sphere* sphere3 = new Sphere(new Vector3d(xWidth *0.4, yWidth*0.3, -50), 30, new Vector3d(0, 0., 255.), 20, 0.5, 0.5);
-	Sphere* jenny = new Sphere(new Vector3d(xWidth *0.6, yWidth*0.6, -50), 50, new Vector3d(151., 255., 255.), 50, 0.5, 0.5);
+	Sphere* sphere3 = new Sphere(new Vector3d(xWidth *0.4, yWidth*0.6, -50), 30, new Vector3d(0, 0., 255.), 20, 0.5, 0.5,0.,1.);
+	Sphere* jenny = new Sphere(new Vector3d(xWidth *0.6, yWidth*0.6, -50), 50, new Vector3d(151., 255., 255.), 50, 0.5, 0.5, 0., 1.);
 	// its important to go from left to the right with the edges. otherwise the normal will be facing the other-way around and will not be lighted correctly!
 	vector<Vector3d*> edges;	
 	edges.push_back(new Vector3d(500., 200., -10.));
@@ -266,7 +267,6 @@ void buildScene() {
 	objects.push_back(sphere2);
 	objects.push_back(sphere3);
 	objects.push_back(jenny);
-
 }
 
 int main(int argc, char **argv) {

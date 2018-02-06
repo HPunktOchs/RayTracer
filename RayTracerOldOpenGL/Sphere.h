@@ -43,7 +43,7 @@ public:
 	//	return true;
 	//}
 
-	bool intersect(Ray ray, Intersection& inter) {
+	bool intersect(const Ray& ray, Intersection& inter) {
 		// Simple sphere intersection. To be used with direct rays.
 		Vector3d deltap(ray.getOrg()->matrix() - this->center->matrix());
 		double a = ray.getDir()->dot(ray.getDir()->matrix());

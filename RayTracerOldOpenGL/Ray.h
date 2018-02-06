@@ -17,6 +17,11 @@ public:
 		//std::cout << "org: " << org->matrix() << std::endl;
 	}
 
+	~Ray() {
+		delete this->dir;
+		delete this->org;
+	}
+
 	Vector3d* getOrg() const {
 		return this->org;
 	}
