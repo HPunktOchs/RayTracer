@@ -1,0 +1,9 @@
+﻿  RayTracer.cpp
+RayTracer.cpp(118): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
+RayTracer.cpp(155): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+  Code wird generiert.
+  2 of 422 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Codegenerierung ist abgeschlossen.
+  RayTracerV2.vcxproj -> C:\Users\Henrik\source\repos\RayTracerV2\Release\RayTracerV2.exe

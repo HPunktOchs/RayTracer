@@ -1,0 +1,12 @@
+﻿  main.cpp
+  Triangle.cpp
+  RayTracer.cpp
+c:\users\henrik\source\repos\raytracerv2\raytracerv2\raytracer.cpp(111): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
+c:\users\henrik\source\repos\raytracerv2\raytracerv2\raytracer.cpp(152): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+  Image.cpp
+  Code wird generiert...
+  Kompilieren...
+  Sphere.cpp
+  Code wird generiert...
+  RayTracerV2.vcxproj -> C:\Users\Henrik\source\repos\RayTracerV2\Debug\RayTracerV2.exe
+  RayTracerV2.vcxproj -> C:\Users\Henrik\source\repos\RayTracerV2\Debug\RayTracerV2.pdb (Partial PDB)

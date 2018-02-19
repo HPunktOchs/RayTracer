@@ -1,0 +1,36 @@
+#ifndef __RAY_H__
+#define __RAY_H__
+
+#include <stdlib.h>
+#include "Vector.h"
+
+class Material;
+
+class Ray {
+public:
+   Vector origin;
+   Vector direction;
+   Vector fracDir;
+   int reflectionsRemaining;
+   Material* material;
+
+   Ray() : origin(Vector()), direction(Vector()), reflectionsRemaining(-1),
+    material(NULL) {
+      calcFracDirection();
+   }
+
+   Ray(Vector origin_, Vector direction_, int reflections, Material* material_) : origin(origin_), reflectionsRemaining(reflections), material(material_) {
+      direction = direction_.normalize();
+      origin += (direction / 1000);	      // Move intersection slightly forward to avoid intersecting with itself.
+      calcFracDirection();
+   }
+
+private:
+   void Ray::calcFracDirection() {
+	   fracDir.x = 1.0f / direction.x;
+	   fracDir.y = 1.0f / direction.y;
+	   fracDir.z = 1.0f / direction.z;
+   }
+};
+
+#endif
